@@ -1,4 +1,5 @@
-﻿apiVersion: apps/v1
+﻿
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: set11-web
@@ -13,18 +14,18 @@ spec:
         app: set11-web
     spec:
       containers:
-      - name: nginx
-        image: nginx:stable
-        ports:
-        - containerPort: 80
-        volumeMounts:
-        - name: web-content
-          mountPath: /usr/share/nginx/html/index.html
-          subPath: index.html
+        - name: nginx
+          image: nginx:stable
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: web-content
+              mountPath: /usr/share/nginx/html/index.html
+              subPath: index.html
       volumes:
-      - name: web-content
-        configMap:
-          name: set11-web-content
+        - name: web-content
+          configMap:
+            name: set11-web-content
 ---
 apiVersion: v1
 kind: Service
@@ -35,5 +36,5 @@ spec:
   selector:
     app: set11-web
   ports:
-  - port: 80
-    targetPort: 80
+    - port: 80
+      targetPort: 80
